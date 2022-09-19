@@ -317,52 +317,52 @@ def startGamemine(systemName, startLevel, proLevel)
 
         # calculates which segment you caught and does stuff
         if seg == 0 and catch == "c":
-            progressbar = progressbar + 5
+            progressbar += 5
             bar2.append("Blue")
-            score = score + 5
+            score += 5
         elif seg == 1 and catch == "c":
             bar = []
             bar2 = []
             bardisplay = ""
-            lives = lives - 1
+            lives -= 1
             progressbar = 0
             progressbar2 = 0
-            score = score - 10
+            score -= 10
         elif seg == 2 and catch == "c":
             if progressbar == 0:
                 continue
             if bar2[-1] == "Orange":
-                progressbar2 = progressbar2 - 5
-                progressbar = progressbar - 5
+                progressbar2 -= 5
+                progressbar -= 5
                 bar2.pop(-1)
-                score = score + 5
+                score += 5
             else:
-                progressbar = progressbar - 5
+                progressbar -= 5
                 bar2.pop(-1)
-                score + score - 5
+                score -= 5
         elif seg == 3 and catch == "c":
-            progressbar = progressbar + 5
-            progressbar2 = progressbar2 + 5
+            progressbar += 5
+            progressbar2 += 5
             bar2.append("Orange")
         elif seg == 4 and catch == "c":
             continue
         elif seg == 5 and catch == "c":
             bonus = random.randint(0, 1)
             if bonus == 0:
-                progressbar = progressbar + 10
+                progressbar += 10
                 bar2.append("Blue")
                 bar2.append("Blue")
-                score = score + 10
+                score += 10
             else:
-                progressbar = progressbar + 15
+                progressbar += 15
                 bar2.append("Blue")
                 bar2.append("Blue")
                 bar2.append("Blue")
-                score = score + 15
+                score += 15
         elif seg == 6 and catch == "c":
             progressbar = 100
             progressbar2 = 0
-            score = score + 100
+            score += 100
 
         if catch == "q":
             print(lang.gameOver)
