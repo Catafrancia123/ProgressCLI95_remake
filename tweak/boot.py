@@ -109,7 +109,7 @@ def boot():
             clear()
             rprint(lang.credits1)
             print()
-            rprint("[#ff0000]BurningInfern0[/#ff0000]")
+            rprint("[#af005f]BurningInfern0[/#af005f]")
             rprint("[#fff400]gamingwithpivin[/#fff400]")
             rprint("[#6530ff]setapdede[/#6530ff]")
             rprint("[#2fda00]5jiji[/#2fda00]")
