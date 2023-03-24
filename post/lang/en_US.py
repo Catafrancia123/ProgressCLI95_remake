@@ -1,18 +1,20 @@
 class language():
   # en_US language configuration file
   # {*} <-- these are for python's .format() command, used for placing variables in strings.
-  # Please do not remove \n, {*}, or [] objects.
+  # Please do not remove \n, {*}, [], or any spaces.
 
   # boot
-  pleaseSelect = 'Please select your language by entering the language code to the left.'
+  pleaseSelect = 'Please select your language by entering the language code to the left. (0.24 compatible)'
   sparrow = '[white]Sparrow Assistant Enhanced Text BIOS.[not bold]80.1[/not bold][/white] - [bright_yellow]Energy Star (un)Powered[/bright_yellow]'
   # {0} is for the build verson, {1} is for the compile date.
   version = '[white]CLI ver. [bold]{0}[/bold] - compiled {1}[/white]'
   dev = '[bold red]- DEVELOPMENT BUILD // BUGS MAY BE COMMON -[/bold red]\n\n'
+  dev2 = '[bold red]- DEVELOPMENT BUILD // BUGS MAY BE COMMON // LANGUAGE NOT COMPATIBLE TO LATEST VERSION -[/bold red]\n\n'
   # {0} is for the boot menu list number, {1} is for the full system name, {2} is the level number required for unlock, {3} is the level you need in a specified system to unlock this one.
   notUnlocked = '[red][not bold]{0}[/not bold]. [not bold]{1}[/not bold] - Get to level {2} in {3} to unlock this![/red]'
   credits1 = "Progress[#12cc00]CLI[/#12cc00]95 [blink]Development[/blink] and [blink]Contributor[/blink] Team"
-  credits2 = "Progress[#12cc00]CLI[/#12cc00]95 [blink]Translation[/blink] Team"
+  credits2 = "Progress[#12cc00]CLI[/#12cc00]95 [blink]Translation[/blink] Team (active)"
+  credits3 = "Progress[#12cc00]CLI[/#12cc00]95 [blink]Translation[/blink] Team (inactive)"
 
   # player
   loading = '\n\n\nNow Loading...'
@@ -23,6 +25,13 @@ class language():
   popupSetting = "\nto the popup window? (Y/N)"
   wait = 'P l e a s e  w a i t . . .\n\n\n'
   closeCMD = '[bold yellow]It is now safe to close your Command Line Interface.[/bold yellow]'
+  mm1 = 'M a i n  M e n u'
+  mm2 = 'Statistics'
+  mm3 = 'Bin'
+  mm4 = 'Achivements'
+  mm5 = 'Calendar'
+  mm6 = 'Mailbox'
+  mm7 = 'Begin Menu'
   bm1 = 'B e g i n  M e n u'
   bm2 = 'New Game'
   bm3 = 'Load Game'
@@ -32,6 +41,7 @@ class language():
   bm7 = 'Resume'
   bm8 = 'Instructions'
   bm9 = 'Update Log'
+  comingsoon = 'Coming soon!'
   ins1 = 'Game Basics'
   ins2 = 'Each segment is different, here is the list of segments:'
   instable1 = 'Segments'
@@ -60,10 +70,11 @@ class language():
   upd6 = 'Status'
   upd023 = '15 September 2022'
   upd0231 = '06 October 2022'
-  upd024 = 'soon'
+  upd024 = '24 March 2023'
   updstatus1 = "Added in-game"
   updstatus2 = "Scrapped"
   updstatus3 = "In development"
+  pickupd = "\nPick a version to see more, to go back press b. (type version number)\n> "
   sett1 = 'S e t t i n g s'
   sett2 = 'Popup'
   sett3 = 'Return'

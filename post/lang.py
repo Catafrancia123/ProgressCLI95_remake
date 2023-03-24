@@ -5,7 +5,7 @@ from saveloader import editSettingsFile
 
 def langset():
     finished = False
-    while finished == False:
+    while not finished:
         clear()
 
         # import lang directory and put listing into variable
@@ -21,14 +21,15 @@ def langset():
                 x = x.replace('.py', '')
                 langArray.append(x)
 
-        # generate langauge list and wait for input
+        # generate language list and wait for input
         for x in langArray:
             globals()[x] = __import__(x)
             xobj = eval(x).language()
             print('[{0}] {1}\n'.format(x, xobj.pleaseSelect))
+        global langCode
         langCode = input('> ')
 
-        # check if language code exists and returns it if true.
+        # check if language code exists and return it if true.
         if langCode in langArray:
             editSettingsFile("lang", langCode)
             return langCode

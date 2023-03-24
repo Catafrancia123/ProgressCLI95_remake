@@ -4,11 +4,11 @@ class language():
   # Please do not remove \n, {*}, or [] objects.
 
   # boot
-  pleaseSelect = 'Seleccione su idioma ingresando el código de idioma a la izquierda.'
+  pleaseSelect = 'Seleccione su idioma ingresando el código de idioma a la izquierda (no compatible con 0.24)'
   sparrow = '[white]Sparrow Assistant Enhanced Text BIOS.[not bold]80.1[/not bold][/white] - [bright_yellow]Energy Star (un)Powered[/bright_yellow]'
   # {0} is for the build verson, {1} is for the compile date.
   version = '[white]CLI ver. [bold]{0}[/bold] - compiled {1}[/white]'
-  dev = '[bold red]- CONSTRUCCIÓN DE DESARROLLO // LOS ERRORES PUEDEN SER COMUNES -[/bold red]\n\n'
+  dev = '[bold red]- CONSTRUCCIÓN DE DESARROLLO // LOS ERRORES PUEDEN SER COMUNES // IDIOMA NO COMPATIBLE CON LA ÚLTIMA VERSIÓN -[/bold red]\n\n'
   # {0} es para el número de lista del menú de arranque, {1} es para el nombre completo del sistema, {2} es el número de nivel requerido para desbloquear, {3} es el nivel que necesita en un sistema específico para desbloquear este.
   notUnlocked = '[red][not bold]{0}[/not bold]. [not bold]{1}[/not bold] - ¡Llega al nivel {2} en {3} para desbloquear esto![/red]'
   credits1 = "Progress[#12cc00]CLI[/#12cc00]95 [blink]Development[/blink] and [blink]Contributor[/blink] Team"

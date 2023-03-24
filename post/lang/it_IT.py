@@ -4,11 +4,11 @@ class language():
   # Please do not remove \n, {*}, or [] objects.
 
   # boot
-  pleaseSelect = 'Seleziona la tua lingua digitando il codice corrispondente sulla sinistra.'
+  pleaseSelect = 'Seleziona la tua lingua inserendo il codice della lingua a sinistra (non compatibile con 0.24)'
   sparrow = '[white]Sparrow Assistant Enhanced Text BIOS.[not bold]80.1[/not bold][/white] - [bright_yellow]Energy Star (un)Powered[/bright_yellow]'
   # {0} is for the build verson, {1} is for the compile date.
   version = '[white]CLI ver. [bold]{0}[/bold] - data compilazione {1}[/white]'
-  dev = '[bold red]- BUILD SPERIMENTALE // POSSIBILI BUG POTREBBERO ESSERE PRESENTI -[/bold red]\n\n'
+  dev = "[bold red]- BUILD DI SVILUPPO // I BUG POSSONO ESSERE COMUNI // LINGUA NON COMPATIBILE CON L'ULTIMA VERSIONE -[/bold red]\n\n"
   # {0} is for the boot menu list number, {1} is for the full system name, {2} is the level number required for unlock, {3} is the level you need in a specified system to unlock this one.
   notUnlocked = '[red][not bold]{0}[/not bold]. [not bold]{1}[/not bold] - Raggiungi il livello {2} in {3} per sbloccarlo![/red]'
   credits1 = "Progress[#12cc00]CLI[/#12cc00]95 [blink]Development[/blink] and [blink]Contributor[/blink] Team"
