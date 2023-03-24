@@ -2,7 +2,7 @@ from saveloader import detectSave, detectSettings, loadSystemSave, loadSettingsS
 from rich import print as rprint
 from clear import clear
 from checkbadge import calculateBadge
-from player import startup
+from player import startup, updateLog
 from lang import langset
 import sys
 import os
@@ -109,23 +109,20 @@ def boot():
             clear()
             rprint(lang.credits1)
             print()
-            rprint("[#ff0000]BurningInfern0[/#ff0000]")
-            rprint("[#fff400]gamingwithpivin[/#fff400]")
-            rprint("[#6530ff]setapdede[/#6530ff]")
-            rprint("[#2fda00]5jiji[/#2fda00]")
-            rprint("[#edaf58]Dieguito0512[/#edaf58]")
-            rprint("[#d5e7ae]SevenSixteen[/#d5e7ae]")
+            rprint("[#5865f2]Catafrancia123[/#5865f2]")
             print()
             rprint(lang.credits2)
-            rprint("🇺🇸 American English (en_US) - [#5865f2]Catafrancia123[/#5865f2]")
-            rprint("🇵🇱 Polish (pl_PL) - [#fff400]gamingwithpivin[/#fff400]")
-            rprint("🇷🇴 Romanian (ro_RO) - [#f6b97a]setapdede[/#f6b97a], [#ff5045]AlexandruUnu[/#ff5045]")
-            rprint("🇫🇷 French (fr_FR) - [#2fda00]5jiji[/#2fda00]")
-            rprint("🇧🇷 Brazilian Portuguese (pt_BR) - [#1462d9]Luihum[/#1462d9]")
-            rprint("🇮🇹 Italian (it_IT) - [#206694]Christian230102[/#206694]")
-            rprint("🇧🇬 Bulgarian (bg_BG) - [#9966cc]markverb1[/#9966cc]")
-            rprint("🇹🇷 Turkish (tr_TR) - [#c27c0e]UstaYussuf[/#c27c0e]")
-            rprint("🇸🇪 Swedish (sw_SE) - [#0000FF]Cranky[/#0000FF]")
+            rprint("🇺🇸 English (en_US) - [#5865f2]Catafrancia123[/#5865f2]")
+            rprint("🇵🇱 Polski (Polish) (pl_PL) - [#fff400]gamingwithpivin[/#fff400]")
+            rprint("🇷🇴 Româna (Romanian) (ro_RO) - [#f6b97a]setapdede[/#f6b97a], [#ff5045]AlexandruUnu[/#ff5045]")
+            rprint("🇫🇷 Français (French) (fr_FR) - [#2fda00]5jiji[/#2fda00]")
+            rprint("🇧🇷 Português Brasileiro (Brazilian Portuguese) (pt_BR) - [#1462d9]Luihum[/#1462d9]")
+            rprint("🇮🇹 Italiano (Italian) (it_IT) - [#206694]Christian230102[/#206694]")
+            rprint("🇧🇬 български (Bulgarian) (bg_BG) - [#9966cc]markverb1[/#9966cc]")
+            rprint("🇹🇷 Türkçe (Turkish) (tr_TR) - [#c27c0e]UstaYussuf[/#c27c0e]")
+            rprint("🇸🇪 Svenska (Swedish) (sw_SE) - [#0000FF]Cranky[/#0000FF]")
+            print()
+            print("As of 2023, the original game developers have ended game development and im the only one!\nWith translators.\nCatafrancia123 - March 2023")
             rprint("Press any key to continue...")
             print()
             input()
@@ -133,6 +130,8 @@ def boot():
             langobj = langset()
             globals()[langobj] = __import__(langobj)
             lang = eval(langobj).language()
+        elif choice == "update" or choice.lower() == "upd":
+            updateLog()
         else:
             choice = int(choice) - 1
             loadSettings(choice)
