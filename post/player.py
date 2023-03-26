@@ -42,7 +42,7 @@ def generateTables(systemlogo):
     global aptable
     global sett
     global begintui1
-    global begintui2F
+    global begintui2
 
     systemLogo = systemlogo.replace(" ", "")
 
@@ -72,6 +72,7 @@ def generateTables(systemlogo):
     bm3table.add_row("2."+lang.bm2)
     bm3table.add_row("3."+lang.bm4)
     bm3table.add_row("4."+lang.bm5)
+    bm3table.add_row("5."+lang.bm8)
 
     # annoying popup
     aptable = Table()
@@ -120,20 +121,20 @@ def generateTables(systemlogo):
  
 def screenDownFun():
     # checks if you have orange segments in your bar
-    if progressbar[0] > 0:
+    if progressbar2 > 0:
         print(lang.bar, end='')
-        for segment in bar:
-            if "blue" in segment:
+        for segment in bar2:
+            if segment == "Blue":
                 rprint("[blue][][/blue]", end='')
-            elif "yellow" in segment:
+            elif segment == "Orange":
                 rprint("[bright_yellow][][/bright_yellow]", end='')
-        print(lang.barProgress1.format(progressbar[0], progressbar[1]))
+        print(lang.barProgress1.format(progressbar, progressbar2))
     else:
         print(lang.bar, end='')
-        for segment in bar:
-            if "blue" in segment:
+        for segment in bar2:
+            if segment == "Blue":
                 rprint("[blue][][/blue]", end='')
-        print(lang.barProgress2.format(progressbar[0]))
+        print(lang.barProgress2.format(progressbar))
 
 def settings(systemname, systemlevel, systempro):
     clear()
@@ -187,12 +188,12 @@ def instructions(systemname, systemlevel, systempro, systemlogo):
 
 def binpet(systemname, systemlevel, systempro, systemlogo):
     try:
+        visits = loadSettingsSave("binvisits")
         if visits == 0:
-            visits = addSetting("binvisits", 0)
+            addSetting("binvisits", 0)
             print_paragraph("bin-figure-normal")
             mood = 50
         else:
-            visits = loadSettingsSave("binvisits")
             visits += 1
             editSettingsFile("binvisits", visits)
             if mood > 40 and mood < 60:
@@ -202,8 +203,9 @@ def binpet(systemname, systemlevel, systempro, systemlogo):
             elif mood > 60 and mood < 100:
                 print_paragraph("bin-figure-happy")
     except UnboundLocalError:
-        print(lang.comingsoon)
-        sleep(3)
+        print(lang.error)
+        print(lang.con2)
+        input()
         mainMenu(systemname, systemlevel, systempro, systemlogo)
 
 # Begin menu normally
@@ -227,14 +229,14 @@ def mainMenu(systemname, systemlevel, systempro, systemlogo,  mail : bool = "not
             choice = input("> ")
             if choice == "1":
                 if systemlevel > 1:
-                    startGame(systemname, systemlevel, systempro, systemlogo)
+                    startGame(systemname, systemlevel, systempro, systemlogo, systemlevel)
                 else:
                     editSystemSave(systemname, 1)
-                    startGame(systemname, 1, systempro, systemlogo)
+                    startGame(systemname, 1, systempro, systemlogo, systemlevel)
             elif choice == "2":
                 if systemlevel > 1:
                     editSystemSave(systemname, 1)
-                    startGame(systemname, 1, systempro, systemlogo)
+                    startGame(systemname, 1, systempro, systemlogo, systemlevel)
                 else:
                     settings(systemname, systemlevel, systempro)
             elif choice == "3":
@@ -275,14 +277,14 @@ def mainMenu(systemname, systemlevel, systempro, systemlogo,  mail : bool = "not
             choice = input("> ")
             if choice == "1":
                 if systemlevel > 1:
-                    startGame(systemname, systemlevel, systempro, systemlogo)
+                    startGame(systemname, systemlevel, systempro, systemlogo, systemlevel)
                 else:
                     editSystemSave(systemname, 1)
-                    startGame(systemname, 1, systempro, systemlogo)
+                    startGame(systemname, 1, systempro, systemlogo, systemlevel)
             elif choice == "2":
                 if systemlevel > 1:
                     editSystemSave(systemname, 1)
-                    startGame(systemname, 1, systempro, systemlogo)
+                    startGame(systemname, 1, systempro, systemlogo, systemlevel)
                 else:
                     settings(systemname, systemlevel, systempro)
             elif choice == "3":
@@ -313,7 +315,7 @@ def mainMenu(systemname, systemlevel, systempro, systemlogo,  mail : bool = "not
             mainMenu(systemname, systemlevel, systempro, systemlogo) 
 
 # Begin menu during gameplay
-def pauseBeginMenu(systemName, systemPro, systemlogo):
+def pauseBeginMenu(systemName, systemlevel, systemPro, systemlogo):
     clear()
     rprint(bm3table)
     choice = input()
@@ -321,13 +323,15 @@ def pauseBeginMenu(systemName, systemPro, systemlogo):
         return
     elif choice == "2":
         editSystemSave(systemName, 1)
-        startGame(systemName, 1, systemPro, systemlogo)
+        startGame(systemName, 1, systemPro, systemlogo, systemlevel, systemlevel)
     elif choice == "3":
         restart()
     elif choice == "4":
         shutdown()
+    elif choice == "5":
+        instructions(systemName, systemlevel, systemPro, systemlogo)
     else:
-        pauseBeginMenu(systemName, systemPro, systemlogo)
+        pauseBeginMenu(systemName, systemlevel, systemPro, systemlogo)
 
 # original code by Setapdede, but i refined it a bit.
 def spawnPopup(startLevel, systemLabel):
@@ -337,30 +341,32 @@ def spawnPopup(startLevel, systemLabel):
         print('<', systemLabel, '>')
     rprint(aptable)
     popupinput = input()
-    if popupinput == "OK":
-        clear()
-    elif popupinput == "ok":
+    if popupinput.lower() == "ok":
 	    clear()
     elif popupinput == "Ok":
         clear()
     else:
         spawnPopup(startLevel, systemLabel)
 
-def startGame(systemName, startLevel, proLevel, systemlogo):
+def startGame(systemName, startLevel, proLevel, systemlogo, systemlevel):
     global progressbar # total progressbar progress
+    global progressbar2 # total orange segments in progressbar
     global lives
     global score
     global bar # array that contains segments for the progressbar
+    global bar2 # contents in bar that are used to calculate pink segments
     global bardisplay # bar[] contents are displayed on screen
     global segments # used in conjunction with bardisplay
     global systemLabel # current system label
     global systemLevel # current system level (used with systemLabel)
 
     # setting global variables
-    progressbar = [0, 0, 0, 0]
+    progressbar = 0
+    progressbar2 = 0
     lives = 3
     score = 0
     bar = []
+    bar2 = []
     bardisplay = ""
     segments = ""
 
@@ -410,15 +416,29 @@ def startGame(systemName, startLevel, proLevel, systemlogo):
             print('<', systemLabel, '>')
 
         # randomly chooses a segment and loads art
-       	segArt = "╔══╗\n║  ║\n║  ║\n╚══╝"
-       	segStyle = ["dark_blue on dark_blue", "bright_red on bright_red", "bright_magenta on bright_magenta", "bright_yellow on bright_yellow", "bright_black on bright_black", "bright_cyan on bright_cyan", "bright_green on bright_green"]
         seg = random.randint(0, 5)
+        if seg == 0:
+            rprint("[blue]╔══╗\n║  ║\n║  ║\n╚══╝[/blue]")
+        elif seg == 1:
+            rprint("[bright_red]╔══╗\n║!!║\n║!!║\n╚══╝[/bright_red]")
+        elif seg == 2:
+            rprint("[bright_magenta]╔══╗\n║--║\n║--║\n╚══╝[/bright_magenta]")
+        elif seg == 3:
+            rprint("[bright_yellow]╔══╗\n║~~║\n║~~║\n╚══╝[/bright_yellow]")
+        elif seg == 4:
+            rprint("[bright_black]╔══╗\n║..║\n║..║\n╚══╝[/bright_black]")
+        elif seg == 5:
+            rprint("[bright_cyan]╔══╗\n║**║\n║**║\n╚══╝[/bright_cyan]")
 
         # green segment check
-        greenseg = random.randint(0, 100)
+        greenseg = random.randint(0, 250)
         if greenseg == 95:
+            clear()
+            print('Level', startLevel)
+            if systemLevel > 0:
+                print('<', systemLabel, '>')
             seg = 6
-        console.print(segArt, style=segStyle[seg])
+            rprint("[bright_green]╔══╗\n║$$║\n║$$║\n╚══╝[/bright_green]")
 
         # checks if you have 1 life left
         if lives == 1:
@@ -432,62 +452,67 @@ def startGame(systemName, startLevel, proLevel, systemlogo):
         catch = input(lang.pressInstructions)
 
         # calculates which segment you caught and does stuff
-       	if catch == "c":
-            if seg != 2 and progressbar[2] > 0 or seg != 4 and progressbar[3] > 0:
-                progressbar = [0, 0, 0, 0]
-                bar = []
-            if seg == 0:
-                progressbar[0] += 5
-                progressbar[2] = 0
-                bar.append("[blue][][/blue]")
-            elif seg == 1:
-                bar = []
-                bardisplay = ""
-                lives = lives - 1
-                progressbar = [0, 0, 0, 0]
-            elif seg == 2:
-                if progressbar[0] == 0 and progressbar[1] == 0:
-                    progressbar[2] += 5
-                    bar.append("[bright_magenta][][/bright_magenta]")
-		    		progressbar[3] = 0
-                elif bar[-1] == "[bright_yellow][][/bright_yellow]":
-                    progressbar[1] -= 5
-                else:
-                    progressbar[0] -= 5
-                bar.pop(-1)
-            elif seg == 3:
-                progressbar[1] += 5
-                bar.append("[bright_yellow][][/bright_yellow]")
-				progressbar[2], progressbar[3] = (0, 0)
-            elif seg == 4:
-                if progressbar[0] == 0 and progressbar[1] == 0:
-                    progressbar[3] += 5
-                    bar.append("[grey1][][/grey1]")
-					progressbar[2] = 0
+        if seg == 0 and catch == "c":
+            progressbar = progressbar + 5
+            bar2.append("Blue")
+            score += 5
+        elif seg == 1 and catch == "c":
+            bar = []
+            bar2 = []
+            bardisplay = ""
+            lives = lives - 1
+            progressbar = 0
+            progressbar2 = 0
+            score -= 1
+        elif seg == 2 and catch == "c":
+            if progressbar == 0:
                 continue
-            elif seg == 5:
-                bonus = random.randint(0, 1)
-                for i in range(2 + bonus):
-                    progressbar[0] += 5
-                    bar.append("[blue][][/blue]")
-				progressbar[2], progressbar[3] = (0, 0)
-            elif seg == 6:
-                progressbar[0] = 100
-                progressbar[1] = 0
+            if bar2[-1] == "Orange":
+                progressbar2 = progressbar2 - 5
+                progressbar = progressbar - 5
+                bar2.pop(-1)
+                score += 5
+            else:
+                progressbar = progressbar - 5
+                bar2.pop(-1)
+                score + score - 5
+        elif seg == 3 and catch == "c":
+            progressbar = progressbar + 5
+            progressbar2 = progressbar2 + 5
+            bar2.append("Orange")
+        elif seg == 4 and catch == "c":
+            continue
+        elif seg == 5 and catch == "c":
+            bonus = random.randint(0, 1)
+            if bonus == 0:
+                progressbar = progressbar + 10
+                bar2.append("Blue")
+                bar2.append("Blue")
+                score += 10
+            else:
+                progressbar = progressbar + 15
+                bar2.append("Blue")
+                bar2.append("Blue")
+                bar2.append("Blue")
+                score += 15
+        elif seg == 6 and catch == "c":
+            progressbar = 100
+            progressbar2 = 0
+            score += 100
 
-        elif catch == "q":
+        if catch == "q":
             print(lang.gameOver)
             sleep(3)
             mainMenu(systemName, startLevel, proLevel, systemlogo)
 
-        elif catch == "beginmenu" or catch.lower() == "bm":
-            pauseBeginMenu(systemName, proLevel, systemlogo)
+        if catch == "beginmenu" or catch.lower() == "bm":
+            pauseBeginMenu(systemName, systemlevel, proLevel, systemlogo)
 
         # if you have 100% on your progressbar, the game will end.
-        if 100 in progressbar or progressbar[0] + progressbar[1] == 100:
+        if progressbar >= 100:
 
             # bonuses
-            if progressbar[1] > 0:
+            if progressbar2 > 0:
                 print(lang.gameBravo)
             elif progressbar >= 100 and progressbar2 == 0:
                 print(lang.gamePerfect)
@@ -548,8 +573,11 @@ def startGame(systemName, startLevel, proLevel, systemlogo):
                
 
             # reset variables and await input
+            bar2 = []
             bardisplay = ""
             segments = ""
-            progressbar = [0 for i in progressbar]
+            progressbar = 0
+            progressbar2 = 0
             print(lang.con2)
             input()
+        continue
