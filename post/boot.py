@@ -138,6 +138,7 @@ def boot():
             rprint("🇺🇸 English (en_US) - [#5865f2]Catafrancia123[/#5865f2]")
             rprint("🇧🇷 Português Brasileiro (Brazilian Portuguese) (pt_BR) - [#95ff00]pyjonh[/#95ff00]")
             rprint("🇩🇪 Deutsch (German) (de_DE) - [#4a412a]KerbMario[/#4a412a]")
+            rprint("🇺🇸 Coccimeut (Cresorium) (je_CR) - [#770099]CreateSource[/#770099]")
             print()
             rprint(lang.credits3)
             rprint("🇵🇱 Polski (Polish) (pl_PL) - [#fff400]gamingwithpivin[/#fff400]")
