@@ -42,7 +42,7 @@ def generateTables(systemlogo):
     global aptable
     global sett
     global begintui1
-    global begintui2
+    global begintui2F
 
     systemLogo = systemlogo.replace(" ", "")
 
@@ -120,20 +120,20 @@ def generateTables(systemlogo):
  
 def screenDownFun():
     # checks if you have orange segments in your bar
-    if progressbar2 > 0:
+    if progressbar[0] > 0:
         print(lang.bar, end='')
-        for segment in bar2:
-            if segment == "Blue":
+        for segment in bar:
+            if "blue" in segment:
                 rprint("[blue][][/blue]", end='')
-            elif segment == "Orange":
+            elif "yellow" in segment:
                 rprint("[bright_yellow][][/bright_yellow]", end='')
-        print(lang.barProgress1.format(progressbar, progressbar2))
+        print(lang.barProgress1.format(progressbar[0], progressbar[1]))
     else:
         print(lang.bar, end='')
-        for segment in bar2:
-            if segment == "Blue":
+        for segment in bar:
+            if "blue" in segment:
                 rprint("[blue][][/blue]", end='')
-        print(lang.barProgress2.format(progressbar))
+        print(lang.barProgress2.format(progressbar[0]))
 
 def settings(systemname, systemlevel, systempro):
     clear()
@@ -348,23 +348,19 @@ def spawnPopup(startLevel, systemLabel):
 
 def startGame(systemName, startLevel, proLevel, systemlogo):
     global progressbar # total progressbar progress
-    global progressbar2 # total orange segments in progressbar
     global lives
     global score
     global bar # array that contains segments for the progressbar
-    global bar2 # contents in bar that are used to calculate pink segments
     global bardisplay # bar[] contents are displayed on screen
     global segments # used in conjunction with bardisplay
     global systemLabel # current system label
     global systemLevel # current system level (used with systemLabel)
 
     # setting global variables
-    progressbar = 0
-    progressbar2 = 0
+    progressbar = [0, 0, 0, 0]
     lives = 3
     score = 0
     bar = []
-    bar2 = []
     bardisplay = ""
     segments = ""
 
@@ -414,29 +410,15 @@ def startGame(systemName, startLevel, proLevel, systemlogo):
             print('<', systemLabel, '>')
 
         # randomly chooses a segment and loads art
+       	segArt = "╔══╗\n║  ║\n║  ║\n╚══╝"
+       	segStyle = ["dark_blue on dark_blue", "bright_red on bright_red", "bright_magenta on bright_magenta", "bright_yellow on bright_yellow", "bright_black on bright_black", "bright_cyan on bright_cyan", "bright_green on bright_green"]
         seg = random.randint(0, 5)
-        if seg == 0:
-            rprint("[blue]╔══╗\n║  ║\n║  ║\n╚══╝[/blue]")
-        elif seg == 1:
-            rprint("[bright_red]╔══╗\n║!!║\n║!!║\n╚══╝[/bright_red]")
-        elif seg == 2:
-            rprint("[bright_magenta]╔══╗\n║--║\n║--║\n╚══╝[/bright_magenta]")
-        elif seg == 3:
-            rprint("[bright_yellow]╔══╗\n║~~║\n║~~║\n╚══╝[/bright_yellow]")
-        elif seg == 4:
-            rprint("[bright_black]╔══╗\n║..║\n║..║\n╚══╝[/bright_black]")
-        elif seg == 5:
-            rprint("[bright_cyan]╔══╗\n║**║\n║**║\n╚══╝[/bright_cyan]")
 
         # green segment check
-        greenseg = random.randint(0, 250)
+        greenseg = random.randint(0, 100)
         if greenseg == 95:
-            clear()
-            print('Level', startLevel)
-            if systemLevel > 0:
-                print('<', systemLabel, '>')
             seg = 6
-            rprint("[bright_green]╔══╗\n║$$║\n║$$║\n╚══╝[/bright_green]")
+        console.print(segArt, style=segStyle[seg])
 
         # checks if you have 1 life left
         if lives == 1:
@@ -450,67 +432,62 @@ def startGame(systemName, startLevel, proLevel, systemlogo):
         catch = input(lang.pressInstructions)
 
         # calculates which segment you caught and does stuff
-        if seg == 0 and catch == "c":
-            progressbar = progressbar + 5
-            bar2.append("Blue")
-            score = score + 5
-        elif seg == 1 and catch == "c":
-            bar = []
-            bar2 = []
-            bardisplay = ""
-            lives = lives - 1
-            progressbar = 0
-            progressbar2 = 0
-            score = score - 10
-        elif seg == 2 and catch == "c":
-            if progressbar == 0:
+       	if catch == "c":
+            if seg != 2 and progressbar[2] > 0 or seg != 4 and progressbar[3] > 0:
+                progressbar = [0, 0, 0, 0]
+                bar = []
+            if seg == 0:
+                progressbar[0] += 5
+                progressbar[2] = 0
+                bar.append("[blue][][/blue]")
+            elif seg == 1:
+                bar = []
+                bardisplay = ""
+                lives = lives - 1
+                progressbar = [0, 0, 0, 0]
+            elif seg == 2:
+                if progressbar[0] == 0 and progressbar[1] == 0:
+                    progressbar[2] += 5
+                    bar.append("[bright_magenta][][/bright_magenta]")
+		    		progressbar[3] = 0
+                elif bar[-1] == "[bright_yellow][][/bright_yellow]":
+                    progressbar[1] -= 5
+                else:
+                    progressbar[0] -= 5
+                bar.pop(-1)
+            elif seg == 3:
+                progressbar[1] += 5
+                bar.append("[bright_yellow][][/bright_yellow]")
+				progressbar[2], progressbar[3] = (0, 0)
+            elif seg == 4:
+                if progressbar[0] == 0 and progressbar[1] == 0:
+                    progressbar[3] += 5
+                    bar.append("[grey1][][/grey1]")
+					progressbar[2] = 0
                 continue
-            if bar2[-1] == "Orange":
-                progressbar2 = progressbar2 - 5
-                progressbar = progressbar - 5
-                bar2.pop(-1)
-                score = score + 5
-            else:
-                progressbar = progressbar - 5
-                bar2.pop(-1)
-                score + score - 5
-        elif seg == 3 and catch == "c":
-            progressbar = progressbar + 5
-            progressbar2 = progressbar2 + 5
-            bar2.append("Orange")
-        elif seg == 4 and catch == "c":
-            continue
-        elif seg == 5 and catch == "c":
-            bonus = random.randint(0, 1)
-            if bonus == 0:
-                progressbar = progressbar + 10
-                bar2.append("Blue")
-                bar2.append("Blue")
-                score = score + 10
-            else:
-                progressbar = progressbar + 15
-                bar2.append("Blue")
-                bar2.append("Blue")
-                bar2.append("Blue")
-                score = score + 15
-        elif seg == 6 and catch == "c":
-            progressbar = 100
-            progressbar2 = 0
-            score = score + 100
+            elif seg == 5:
+                bonus = random.randint(0, 1)
+                for i in range(2 + bonus):
+                    progressbar[0] += 5
+                    bar.append("[blue][][/blue]")
+				progressbar[2], progressbar[3] = (0, 0)
+            elif seg == 6:
+                progressbar[0] = 100
+                progressbar[1] = 0
 
-        if catch == "q":
+        elif catch == "q":
             print(lang.gameOver)
             sleep(3)
             mainMenu(systemName, startLevel, proLevel, systemlogo)
 
-        if catch == "beginmenu" or catch.lower() == "bm":
+        elif catch == "beginmenu" or catch.lower() == "bm":
             pauseBeginMenu(systemName, proLevel, systemlogo)
 
         # if you have 100% on your progressbar, the game will end.
-        if progressbar >= 100:
+        if 100 in progressbar or progressbar[0] + progressbar[1] == 100:
 
             # bonuses
-            if progressbar2 > 0:
+            if progressbar[1] > 0:
                 print(lang.gameBravo)
             elif progressbar >= 100 and progressbar2 == 0:
                 print(lang.gamePerfect)
@@ -571,11 +548,8 @@ def startGame(systemName, startLevel, proLevel, systemlogo):
                
 
             # reset variables and await input
-            bar2 = []
             bardisplay = ""
             segments = ""
-            progressbar = 0
-            progressbar2 = 0
+            progressbar = [0 for i in progressbar]
             print(lang.con2)
             input()
-        continue
