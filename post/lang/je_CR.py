@@ -56,9 +56,9 @@ class language():
   upd4 = 'Omio'
   upd5 = 'Iuecueso'
   upd6 = 'Telmit'
-  upd023 = '15 September 2022'
-  upd0231 = '06 October 2022'
-  upd024 = 'meort'
+  upd023 = '13/9/2022'
+  upd0231 = '06/X/2022'
+  upd024 = '20/3/2023'
   updstatus1 = "Mutuso"
   updstatus2 = "Mumuso"
   updstatus3 = "Imu meceiueot"
