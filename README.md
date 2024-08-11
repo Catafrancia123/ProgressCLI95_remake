@@ -1,4 +1,4 @@
-# ProgressCMD
+# ProgressCLI95_remake
 The continuing of the official [ProgressCLI95](doc:linking-to-pages#anchor-links)
 
 ## Remake
