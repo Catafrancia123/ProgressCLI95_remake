@@ -1,0 +1,10 @@
+{
+    "en" : {
+        "sparrow" : "Sparrow Assistant Text BIOS v.5.0.1. Copyright Progresscorp 2024. All Rights Reserved.",
+        "version" : "CLI v.0.3.1 - Build Date: 11-8-2024",
+        "beta-warning" : "GAME ON BETA // BUGS ARE COMMON",
+        "select-system" : "Select System:",
+        "system-not-unlocked-exist" : "System does not exist/unlocked yet.",
+        "not-valid-input" : "Not a valid input."
+    }
+}   
