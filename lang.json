@@ -5,6 +5,26 @@
         "beta-warning" : "GAME ON BETA // BUGS ARE COMMON",
         "select-system" : "Select System:",
         "system-not-unlocked-exist" : "System does not exist/unlocked yet.",
-        "not-valid-input" : "Not a valid input."
+        "not-valid-input" : "Not a valid input.",
+
+        "main-collumn" : "Options",
+        "main-row-1" : "Statistics",
+        "main-row-2" : "Begin Menu",
+        "begin-row-1" : "New Game",
+        "begin-row-2" : "Load Game",
+        "begin-row-3" : "Settings",
+        "begin-row-4" : "Help",
+        "begin-row-5" : "Shutdown",
+        "begin-row-6" : "Restart",
+        "begin-row-7" : "Quit Game",
+
+        "wait" : "Please Wait...",
+        "close-game" : "It is now safe to close your Command Line Interface.",
+
+        "game-1" : "Your bar:",
+        "game-2" : "Input \"c\" to catch, Input any key to move away, Input \"q\" to quit, Input \"p\" to pause the game.",
+        "game-3" : "Thanks For Playing!",
+        "game-4" : "No lives, game over.",
+        "game-5" : "You win!"
     }
 }   
