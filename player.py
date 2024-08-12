@@ -3,6 +3,7 @@ from saveloader import *
 from rich import print as rprint
 from rich import box
 from rich.table import Table
+from rich.panel import Panel
 from time import sleep as wait
 import random
 
@@ -104,12 +105,12 @@ def game(system_name : str, system_level: int):
             print(load("lang.json", "game-4", load("save.json", "lang")))
             lives = 3
             edit("save.json", "lives", lives)
+            menu(system_name, system_level)
         elif bar_counter == 20 or green_segment_catch == True:
             print(load("lang.json", "game-5", load("save.json", "lang")))
             wait(2)
             curr_level += 1
             edit("save.json", system_name, curr_level, "save")
-            break
 
         clear()
 
@@ -143,7 +144,7 @@ def game(system_name : str, system_level: int):
                 elif i == "y":
                     colored_progressbar.append("[yellow]█[/yellow]")
 
-        rprint(f"\n{load("lang.json", "game-1", load("save.json", "lang"))} {"".join(colored_progressbar)}")
+        rprint("\n"+load("lang.json", "game-1", load("save.json", "lang")), Panel("".join(colored_progressbar), box.ROUNDED, width=24))
         print(load("lang.json", "game-2", load("save.json", "lang")))
         choice_bar = input("> ")
         if choice_bar.lower() == "c":
