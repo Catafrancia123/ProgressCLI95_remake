@@ -6,6 +6,7 @@
         "select-system" : "Select System:",
         "system-not-unlocked-exist" : "System does not exist/unlocked yet.",
         "not-valid-input" : "Not a valid input.",
+        "error-save-modified" : "ERROR: Save file has been modified. (ERR CODE: 1)\nPlease delete the save.json file and run the program again (this will delete your progress).\nContact the developer for more info.",
 
         "main-collumn" : "Options",
         "main-row-1" : "Statistics",
@@ -20,11 +21,20 @@
 
         "wait" : "Please Wait...",
         "close-game" : "It is now safe to close your Command Line Interface.",
+        "delete-1" : "Are you sure you want to delete your progress?",
+        "delete-2" : "Type \"DELETE\" to delete your progress:",
+        "delete-prompt" : "delete", 
+        "delete-3" : "Your data has been deleted.",
 
         "game-1" : "Your bar:",
         "game-2" : "Input \"c\" to catch, Input any key to move away, Input \"q\" to quit, Input \"p\" to pause the game.",
         "game-3" : "Thanks For Playing!",
         "game-4" : "No lives, game over.",
-        "game-5" : "You win!"
+        "game-5" : "You win!",
+        "game-6" : "Level",
+        "game-7" : "Lives Remaining:",
+        "game-8" : "You win, Perfectionist!",
+        
+        "popup" : ":) Annoying Popup!"
     }
 }   

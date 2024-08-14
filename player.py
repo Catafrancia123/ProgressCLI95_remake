@@ -32,8 +32,8 @@ def load_tables(system_name : str):
     begintable2 = Table(title=load("lang.json", "main-row-2", load("save.json", "lang")), box=box.ROUNDED)
     begintable2.add_column(load("lang.json", "main-collumn", load("save.json", "lang")))
     
-    begintable2.add_row(f"1. {load("lang.json", "begin-row-1", load("save.json", "lang"))}")
-    begintable2.add_row(f"2. {load("lang.json", "begin-row-2", load("save.json", "lang"))}")
+    begintable2.add_row(f"1. {load("lang.json", "begin-row-2", load("save.json", "lang"))}")
+    begintable2.add_row(f"2. {load("lang.json", "begin-row-1", load("save.json", "lang"))}")
     begintable2.add_row(f"3. {load("lang.json", "begin-row-3", load("save.json", "lang"))}")
     begintable2.add_row(f"4. {load("lang.json", "begin-row-4", load("save.json", "lang"))}")
     begintable2.add_row(f"5. {load("lang.json", "begin-row-5", load("save.json", "lang"))}")
@@ -46,31 +46,41 @@ def menu(system_name : str, system_level: int, load_table : bool = False):
     rprint(menutable1)
     choice = input("\n> ")
 
-    if choice == "1":
-        print("nope")
-    elif choice == "2":
-        clear()
-        if system_level == 0:
-            rprint(begintable1)
-            choicebm = input("\n> ")
-            if choicebm == "1":
-                game(system_name, system_level)
-            elif choicebm == "4":
-                shutdown()
-            elif choicebm == "5":
-                restart()    
-        elif system_level >= 1:
-            rprint(begintable2)
-            choicebm = input("\n> ")
-            if choicebm == "1" or choicebm == "2":
-                game(system_name, system_level)
-            elif choicebm == "5":
-                shutdown()
-            elif choicebm == "6":
-                restart()
-        
-        elif system_level < 0: 
-            edit("save.json", load_os(system_name, "short_name"), 0, "save")
+    while True:
+        if choice == "1":
+            print("nope")
+        elif choice == "2":
+            clear()
+            if system_level == 0:
+                rprint(begintable1)
+                choicebm = input("\n> ")
+                if choicebm == "1":
+                    game(system_name, system_level)
+                    break
+                elif choicebm == "4":
+                    shutdown()
+                elif choicebm == "5":
+                    restart()    
+            elif system_level >= 1:
+                rprint(begintable2)
+                choicebm = input("\n> ")
+                if choicebm == "2":
+                    print(f"{load("lang.json", "delete-1", load("save.json", "lang"))} (Y/N)")
+                    choice_delete = input("> ")
+                    if choice_delete.lower() == "y":
+                        choice_sure = input(f"{load("lang.json", "delete-2", load("save.json", "lang"))} ")
+                        if choice_sure.lower() == load("lang.json", "delete-prompt", load("save.json", "lang")):
+                            edit("save.json", system_name, 0, "save")
+                            print(load("lang.json", "delete-3", load("save.json", "lang")))
+                elif choicebm == "1":
+                    game(system_name, system_level)
+                    break
+                elif choicebm == "5":
+                    shutdown()
+                elif choicebm == "6":
+                    restart()
+            elif system_level < 0: 
+                edit("save.json", load_os(system_name, "short_name"), 0, "save")
 
 # shutdown wgaming
 def shutdown():
@@ -99,6 +109,7 @@ def game(system_name : str, system_level: int):
     can_input = True
     lives = load("save.json", "lives")
     green_segment_catch = False
+    perfectionist = False
 
     while True:
         if lives == 0:
@@ -107,34 +118,53 @@ def game(system_name : str, system_level: int):
             edit("save.json", "lives", lives)
             menu(system_name, system_level)
         elif bar_counter == 20 or green_segment_catch == True:
-            print(load("lang.json", "game-5", load("save.json", "lang")))
+            perfectionist == True
+            for i in progressbar:
+                if i == "y":
+                    perfectionist == False
+            print(load("lang.json", "game-8", load("save.json", "lang")))
+            if perfectionist == False:
+                print(load("lang.json", "game-5", load("save.json", "lang")))
             wait(2)
             curr_level += 1
+            progressbar = list(range(20))
+            bar_counter = 0
+            can_input = True
+            green_segment_catch = False
             edit("save.json", system_name, curr_level, "save")
+            if perfectionist == True:
+                lives += 1
+                edit("save.json", "lives", lives)
+
+        # popup
+        popup_show = random.randint(0,7)
+        if popup_show == 6:
+            popup_spawn()
 
         clear()
-
-        print(f"Level {curr_level}")
-        print(f"Lives remaining: {lives}\n")
-        seg = random.randint(0, 5)
-        if seg == 0:
-            rprint("[blue]╔══╗\n║  ║\n║  ║\n╚══╝[/blue]")
-        elif seg == 1:
-            rprint("[bright_red]╔══╗\n║!!║\n║!!║\n╚══╝[/bright_red]")
-        elif seg == 2:
-            rprint("[bright_magenta]╔══╗\n║--║\n║--║\n╚══╝[/bright_magenta]")
-        elif seg == 3:
-            rprint("[bright_yellow]╔══╗\n║~~║\n║~~║\n╚══╝[/bright_yellow]")
-        elif seg == 4:
-            rprint("[bright_black]╔══╗\n║..║\n║..║\n╚══╝[/bright_black]")
-        elif seg == 5:
-            rprint("[bright_cyan]╔══╗\n║**║\n║**║\n╚══╝[/bright_cyan]")
-
+        print(f"{load("lang.json", "game-6", load("save.json", "lang"))} {curr_level}")
+        print(f"{load("lang.json", "game-7", load("save.json", "lang"))} {lives}\n")
+            
         # green segment
+        seg = random.randint(0, 5)
         green_seg = random.randint(0, 250)
         if green_seg == 95:
             seg = 6
             rprint("[bright_green]╔══╗\n║$$║\n║$$║\n╚══╝[/bright_green]")
+        
+        if seg != 6:
+            if seg == 0:
+                rprint("[blue]╔══╗\n║  ║\n║  ║\n╚══╝[/blue]")
+            elif seg == 1:
+                rprint("[bright_red]╔══╗\n║!!║\n║!!║\n╚══╝[/bright_red]")
+            elif seg == 2:
+                rprint("[bright_magenta]╔══╗\n║--║\n║--║\n╚══╝[/bright_magenta]")
+            elif seg == 3:
+                rprint("[bright_yellow]╔══╗\n║~~║\n║~~║\n╚══╝[/bright_yellow]")
+            elif seg == 4:
+                rprint("[bright_black]╔══╗\n║..║\n║..║\n╚══╝[/bright_black]")
+            elif seg == 5:
+                rprint("[bright_cyan]╔══╗\n║**║\n║**║\n╚══╝[/bright_cyan]")
 
         if can_input == True:
             colored_progressbar = []
@@ -168,13 +198,18 @@ def game(system_name : str, system_level: int):
             elif seg == 5:
                 decider = random.randint(0,1)
                 if decider == 0:
-                    for i in range(2):
-                        progressbar[bar_counter] = "b"
-                        bar_counter += 1
+                    times = 2
                 elif decider == 1:
-                    for i in range(3):
-                        progressbar[bar_counter] = "b"
-                        bar_counter += 1
+                    times = 3
+
+                if bar_counter > 20-times:
+                    times -= 1
+
+                for i in range(times):
+                    progressbar[bar_counter] = "b"
+                    bar_counter += 1
+
+                          
             elif seg == 6:
                 green_segment_catch = True   
         elif choice_bar.lower() == "q":
@@ -185,4 +220,10 @@ def game(system_name : str, system_level: int):
         else:
             can_input = False
             
-
+def popup_spawn():
+    while True:
+        clear()
+        rprint(Panel(f"{load("lang.json", "popup", load("save.json", "lang"))}\n       [OK]", box=box.ROUNDED, width=22))
+        popup_input = input("> ")
+        if popup_input.lower() == "ok":
+            break

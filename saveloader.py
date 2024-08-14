@@ -32,19 +32,19 @@ def load_os(os_name : str, to_load : str):
         load = json.load(read_file)
     return load["os"][f"system_{os_name}"][to_load]
 
-def load(path : str, to_load : str, libary : str = "none"):
+def load(path : str, to_load : str, library : str = "none"):
     with open(path, mode="r", encoding="utf-8") as read_file:
         load = json.load(read_file)
-    if libary == "none":
+    if library == "none":
         return load[to_load]
-    return load[libary][to_load]
+    return load[library][to_load]
 
-def edit(path : str, to_change : str, value, libary : str = "none"):
+def edit(path : str, to_change : str, value, library : str = "none"):
     with open(path, mode="r", encoding="utf-8") as read_file:
         data = json.load(read_file)
-    if libary == "none":
-        data[to_change] = value
-    data[libary][to_change] = value
+    if library != "none":
+        data[library][to_change] = value
+    data[to_change] = value
 
     with open("save.json", "w") as outfile:
         json.dump(data, outfile)

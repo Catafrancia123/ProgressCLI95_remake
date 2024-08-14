@@ -22,15 +22,7 @@ def test1():
 
 def test2():
     clear()
-    progressbar = ["b", "b", "y", "b","b", "b", "y", "b","b", "b", "y", "b","b", "b", "y", "b","b", "b", "y", "b"]
-    colored_progressbar = []
-    
-    for i in progressbar:
-        if i == "b":
-            colored_progressbar.append("[blue]█[/blue]")
-        elif i == "y":
-            colored_progressbar.append("[yellow]█[/yellow]")
-
-    rprint("".join(colored_progressbar))
+    text = ":) Annoying Popup!"
+    rprint(Panel(f"{text}\n       [OK]", box=box.ROUNDED, width=22))
 
 test2()

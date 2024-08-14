@@ -7,11 +7,19 @@ from time import sleep as wait
 # Version and Important stuff
 version = "0.3.1"
 build_date = "30/7/2024"
-systems = ["95", "95+"]
+systems = ("95", "95+")
+languages = ("en")
 systems_int = tuple(range(2+1))
 
 def boot():
     find_save()
+    check_lives = load("save.json", "lives")
+    check_lang = load("save.json", "lang")
+    if check_lives > 3 or check_lang not in languages:
+        clear()
+        print(load("lang.json", "error-save-modified", load("save.json", "lang")))
+        exit()
+
     while True:
         clear()
         print(load("lang.json", "sparrow", load("save.json", "lang")))
