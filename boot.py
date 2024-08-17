@@ -3,6 +3,7 @@ from functions import *
 from player import menu
 from rich import print as rprint
 from time import sleep as wait
+from playsound3 import playsound
 
 # Version and Important stuff
 version = "0.3.1"
@@ -20,6 +21,9 @@ def boot():
         print(load("lang.json", "error-save-modified", load("save.json", "lang")))
         exit()
 
+
+    clear()
+    playsound("sounds/beep.wav")
     while True:
         clear()
         print(load("lang.json", "sparrow", load("save.json", "lang")))
@@ -42,8 +46,8 @@ def boot():
             else: 
                 print(load("lang.json", "system-not-unlocked-exist", load("save.json", "lang"))) 
                 wait(2)
-        except ValueError:
+        except ValueError or EOFError:
             print(load("lang.json", "not-valid-input", load("save.json", "lang")))
-            wait(2)    
+            wait(2) 
 
 boot()

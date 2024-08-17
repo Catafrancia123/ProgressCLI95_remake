@@ -40,45 +40,51 @@ def load_tables(system_name : str):
     begintable2.add_row(f"6. {load("lang.json", "begin-row-6", load("save.json", "lang"))}")
 
 def menu(system_name : str, system_level: int, load_table : bool = False):
-    if load_table == True:
+    if load_table:
         load_tables(system_name)
     clear()
     rprint(menutable1)
-    choice = input("\n> ")
 
     while True:
+        choice = input("\n> ")
         if choice == "1":
-            print("nope")
+            statistics(system_name, system_level)
         elif choice == "2":
             clear()
             if system_level == 0:
-                rprint(begintable1)
-                choicebm = input("\n> ")
-                if choicebm == "1":
-                    game(system_name, system_level)
-                    break
-                elif choicebm == "4":
-                    shutdown()
-                elif choicebm == "5":
-                    restart()    
+                while True:
+                    rprint(begintable1)
+                    choicebm = input("\n> ")
+                    if choicebm == "1":
+                        game(system_name, system_level)
+                        break
+                    elif choicebm == "4":
+                        shutdown()
+                        break
+                    elif choicebm == "5":
+                        restart()    
+                        break
             elif system_level >= 1:
-                rprint(begintable2)
-                choicebm = input("\n> ")
-                if choicebm == "2":
-                    print(f"{load("lang.json", "delete-1", load("save.json", "lang"))} (Y/N)")
-                    choice_delete = input("> ")
-                    if choice_delete.lower() == "y":
-                        choice_sure = input(f"{load("lang.json", "delete-2", load("save.json", "lang"))} ")
-                        if choice_sure.lower() == load("lang.json", "delete-prompt", load("save.json", "lang")):
-                            edit("save.json", system_name, 0, "save")
-                            print(load("lang.json", "delete-3", load("save.json", "lang")))
-                elif choicebm == "1":
-                    game(system_name, system_level)
-                    break
-                elif choicebm == "5":
-                    shutdown()
-                elif choicebm == "6":
-                    restart()
+                while True:
+                    rprint(begintable2)
+                    choicebm = input("\n> ")
+                    if choicebm == "2":
+                        print(f"{load("lang.json", "delete-1", load("save.json", "lang"))} (Y/N)")
+                        choice_delete = input("> ")
+                        if choice_delete.lower() == "y":
+                            choice_sure = input(f"{load("lang.json", "delete-2", load("save.json", "lang"))}: ")
+                            if choice_sure.lower() == load("lang.json", "delete-prompt", load("save.json", "lang")):
+                                edit("save.json", system_name, 0, "save")
+                                print(load("lang.json", "delete-3", load("save.json", "lang")))
+                    elif choicebm == "1":
+                        game(system_name, system_level)
+                        break
+                    elif choicebm == "5":
+                        shutdown()
+                        break
+                    elif choicebm == "6":
+                        restart()
+                        break
             elif system_level < 0: 
                 edit("save.json", load_os(system_name, "short_name"), 0, "save")
 
@@ -87,7 +93,6 @@ def shutdown():
     clear()
     print(load("lang.json", "wait", load("save.json", "lang")))
     wait(3)
-    find_save(True)
     rprint(f"[bold yellow]{load("lang.json", "close-game", load("save.json", "lang"))}[/bold yellow]")
     wait(2)
     quit()
@@ -116,23 +121,29 @@ def game(system_name : str, system_level: int):
             print(load("lang.json", "game-4", load("save.json", "lang")))
             lives = 3
             edit("save.json", "lives", lives)
+            edit("save.json", system_name, curr_level-1, "save")
             menu(system_name, system_level)
-        elif bar_counter == 20 or green_segment_catch == True:
+        elif bar_counter == 20 or green_segment_catch:
             perfectionist == True
             for i in progressbar:
                 if i == "y":
                     perfectionist == False
-            print(load("lang.json", "game-8", load("save.json", "lang")))
-            if perfectionist == False:
+            if perfectionist:
+                print(load("lang.json", "game-8", load("save.json", "lang")))
+            if not perfectionist:
                 print(load("lang.json", "game-5", load("save.json", "lang")))
             wait(2)
+
+            # edit variables to default
             curr_level += 1
             progressbar = list(range(20))
             bar_counter = 0
             can_input = True
             green_segment_catch = False
+            perfectionist = False
+
             edit("save.json", system_name, curr_level, "save")
-            if perfectionist == True:
+            if perfectionist:
                 lives += 1
                 edit("save.json", "lives", lives)
 
@@ -166,7 +177,7 @@ def game(system_name : str, system_level: int):
             elif seg == 5:
                 rprint("[bright_cyan]╔══╗\n║**║\n║**║\n╚══╝[/bright_cyan]")
 
-        if can_input == True:
+        if can_input:
             colored_progressbar = []
             for i in progressbar:
                 if i == "b":
@@ -219,6 +230,23 @@ def game(system_name : str, system_level: int):
             break
         else:
             can_input = False
+
+def statistics(system_name : str, system_level: int):
+    clear()
+    print(f"{load("lang.json", "main-row-1", load("save.json", "lang"))}:\n")
+
+    # Variables
+    systems = ("PB95", "PB95+")
+    systemslevels = {name: load("save.json", name, "save") for name in systems}
+    allsystemslevels = sum(systemslevels.values())
+    systems_unlocked = []
+    for i in systems: systems_unlocked.append(i)
+
+    print(f"{load("lang.json", "stats-1", load("save.json", "lang"))} {allsystemslevels}")
+    print(f"{load("lang.json", "stats-2", load("save.json", "lang"))} {', '.join(systems_unlocked)}\n")
+    input(load("lang.json", "continue", load("save.json", "lang")))
+    menu(system_name, system_level)
+
             
 def popup_spawn():
     while True:

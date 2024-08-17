@@ -9,8 +9,8 @@ def find_save(quiet : bool = False):
         if save in files:
             save_found = True
 
-    if save_found == False:
-        if quiet == False:
+    if not save_found:
+        if not quiet:
             print("Save not found, Creating save...")
         save_template = {
             "lang": "en",
@@ -24,7 +24,7 @@ def find_save(quiet : bool = False):
         with open("save.json", "w") as outfile:
             json.dump(save_template, outfile)
     else:
-        if quiet == False:
+        if not quiet:
             print("Save Found, Continuing game...")
 
 def load_os(os_name : str, to_load : str):
