@@ -9,6 +9,7 @@
         "error-save-modified" : "ERROR: Save file has been modified. (ERR CODE: 1)\nPlease delete the save.json file and run the program again (this will delete your progress).\nContact the developer for more info.",
         "popup" : ":) Annoying Popup!",
         "wait" : "Please Wait...",
+        "loading" : "Loading",
         "close-game" : "It is now safe to close your Command Line Interface.",
         "delete-1" : "Are you sure you want to delete your progress?",
         "delete-2" : "Type \"DELETE\" to delete your progress",
@@ -19,6 +20,7 @@
         "main-collumn" : "Options",
         "main-row-1" : "Statistics",
         "main-row-2" : "Begin Menu",
+        "main-row-3" : "Begin Menu (paused)",
         "begin-row-1" : "New Game",
         "begin-row-2" : "Load Game",
         "begin-row-3" : "Settings",
@@ -26,6 +28,7 @@
         "begin-row-5" : "Shutdown",
         "begin-row-6" : "Restart",
         "begin-row-7" : "Quit Game",
+        "begin-row-8" : "Resume",
 
         "game-1" : "Your bar:",
         "game-2" : "Input \"c\" to catch, Input any key to move away, Input \"q\" to quit, Input \"p\" to pause the game.",
@@ -35,6 +38,8 @@
         "game-6" : "Level",
         "game-7" : "Lives Remaining:",
         "game-8" : "You win, Perfectionist!",
+
+        "label-1" : "Congratulations, Professional Label acquired!",
 
         "stats-1" : "Levels Completed:",
         "stats-2" : "Systems unlocked:"

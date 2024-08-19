@@ -9,7 +9,7 @@ import random
 
 def load_tables(system_name : str):
     # Make it accessible anywhere
-    global menutable1, begintable1, begintable2
+    global menutable1, begintable1, begintable2, begintable3
 
     # Main Menu 1 (no bin, achivements, calendar)
     menutable1 = Table(title=load_os(system_name, "name"), box=box.ROUNDED)
@@ -38,6 +38,14 @@ def load_tables(system_name : str):
     begintable2.add_row(f"4. {load("lang.json", "begin-row-4", load("save.json", "lang"))}")
     begintable2.add_row(f"5. {load("lang.json", "begin-row-5", load("save.json", "lang"))}")
     begintable2.add_row(f"6. {load("lang.json", "begin-row-6", load("save.json", "lang"))}")
+
+    # Begin Menu 3 (pause game)
+    begintable3 = Table(title=load("lang.json", "main-row-3", load("save.json", "lang")), box=box.ROUNDED)
+    begintable3.add_column(load("lang.json", "main-collumn", load("save.json", "lang")))
+    begintable3.add_row(f"1. {load("lang.json", "begin-row-8", load("save.json", "lang"))}")
+    begintable3.add_row(f"2. {load("lang.json", "begin-row-7", load("save.json", "lang"))}")
+    begintable3.add_row(f"3. {load("lang.json", "begin-row-5", load("save.json", "lang"))}")
+    begintable3.add_row(f"4. {load("lang.json", "begin-row-6", load("save.json", "lang"))}")
 
 def menu(system_name : str, system_level: int, load_table : bool = False):
     if load_table:
@@ -86,7 +94,27 @@ def menu(system_name : str, system_level: int, load_table : bool = False):
                         restart()
                         break
             elif system_level < 0: 
-                edit("save.json", load_os(system_name, "short_name"), 0, "save")
+                edit("save.json", system_name, 0, "save")
+
+def paused_menu(system_name : str, system_level: int):
+    clear()
+    rprint(begintable3)
+    while True:
+        choice = input("\n> ")
+        if choice == "1":
+            game(system_name, system_level)
+            break
+        elif choice == "2":
+            print(load("lang.json", "game-3", load("save.json", "lang")))
+            wait(2)
+            menu(system_name, system_level)
+            break
+        elif choice == "3":
+            shutdown()
+            break
+        elif choice == "4":
+            restart()
+            break
 
 # shutdown wgaming
 def shutdown():
@@ -94,7 +122,6 @@ def shutdown():
     print(load("lang.json", "wait", load("save.json", "lang")))
     wait(3)
     rprint(f"[bold yellow]{load("lang.json", "close-game", load("save.json", "lang"))}[/bold yellow]")
-    wait(2)
     quit()
 
 def restart():
@@ -110,6 +137,7 @@ def game(system_name : str, system_level: int):
     # Variables
     progressbar = list(range(20))
     curr_level = system_level
+    pro_level = load_os(system_name, "pro_level")
     bar_counter = 0
     can_input = True
     lives = load("save.json", "lives")
@@ -117,6 +145,7 @@ def game(system_name : str, system_level: int):
     perfectionist = False
 
     while True:
+        # win or lose
         if lives == 0:
             print(load("lang.json", "game-4", load("save.json", "lang")))
             lives = 3
@@ -124,15 +153,19 @@ def game(system_name : str, system_level: int):
             edit("save.json", system_name, curr_level-1, "save")
             menu(system_name, system_level)
         elif bar_counter == 20 or green_segment_catch:
-            perfectionist == True
+            perfectionist = True
             for i in progressbar:
                 if i == "y":
-                    perfectionist == False
+                    perfectionist = False
             if perfectionist:
                 print(load("lang.json", "game-8", load("save.json", "lang")))
             if not perfectionist:
                 print(load("lang.json", "game-5", load("save.json", "lang")))
-            wait(2)
+
+            # get lives
+            if perfectionist and lives < 3:
+                lives += 1
+                edit("save.json", "lives", lives)
 
             # edit variables to default
             curr_level += 1
@@ -142,10 +175,14 @@ def game(system_name : str, system_level: int):
             green_segment_catch = False
             perfectionist = False
 
+            # labels (pro only for now)
+            if curr_level == pro_level:
+                print(load("lang.json", "label-1", load("save.json", "lang")))
+                edit("save.json", f"{system_name}_label", "Professional", "save")
+            wait(2)
+
+
             edit("save.json", system_name, curr_level, "save")
-            if perfectionist:
-                lives += 1
-                edit("save.json", "lives", lives)
 
         # popup
         popup_show = random.randint(0,7)
@@ -227,6 +264,9 @@ def game(system_name : str, system_level: int):
             print(load("lang.json", "game-3", load("save.json", "lang")))
             wait(2)
             menu(system_name, curr_level)
+            break
+        elif choice_bar.lower() == "p":
+            paused_menu(system_name, system_level)
             break
         else:
             can_input = False

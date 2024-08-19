@@ -16,7 +16,9 @@ def find_save(quiet : bool = False):
             "lang": "en",
             "save": {
                 "PB95" : 0,
-                "PB95+" : 0
+                "PB95_label" : "None",
+                "PB95+" : 0,
+                "PB95+_label" : "None"
             },
             "lives": 3
         }
@@ -44,7 +46,8 @@ def edit(path : str, to_change : str, value, library : str = "none"):
         data = json.load(read_file)
     if library != "none":
         data[library][to_change] = value
-    data[to_change] = value
+    else:
+        data[to_change] = value
 
     with open("save.json", "w") as outfile:
         json.dump(data, outfile)

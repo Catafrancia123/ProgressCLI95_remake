@@ -29,18 +29,25 @@ def boot():
         print(load("lang.json", "sparrow", load("save.json", "lang")))
         print(load("lang.json", "version", load("save.json", "lang")))
         rprint(f"[bright_red]- {load("lang.json", "beta-warning", load("save.json", "lang"))} -[bright_red]\n")
-
+            
         counter = 1
-        for i in systems: 
-            print(f"{counter}.", load_os(f"PB{i}", "name"))
+        for i in systems:
+            global_label = load("save.json", f"PB{i}_label", "save")
+            if global_label == "None":
+                global_label = ""
+            print(f"{counter}.", load_os(f"PB{i}", "name"), global_label)
             counter += 1
 
         try:
             choice = int(input(f"\n{load("lang.json", "select-system", load("save.json", "lang"))} "))
+            label = load("save.json", f"PB{systems[choice-1]}_label", "save")
+            if label == "None":
+                label = ""
+
             if choice in systems_int:
                 clear()
-                print(load("lang.json", "wait", load("save.json", "lang")))
-                wait(2)
+                print(f"{load("lang.json", "loading", load("save.json", "lang"))} {load_os(f"PB{systems[choice-1]}", "name")} {label}\n{load("lang.json", "wait", load("save.json", "lang"))}")
+                wait(3)
                 menu(load_os(f"PB{systems[choice-1]}", "short_name"), load("save.json", f"PB{systems[choice-1]}", "save"), True)
                 break
             else: 

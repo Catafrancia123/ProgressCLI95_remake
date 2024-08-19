@@ -16,7 +16,7 @@
       "short_name": "PB95+", 
       "pro_level": 20,
       "unlock_level": 15,
-      "system_unlock": "98",
+      "system_unlock": "",
       "required_string": "PB95",
       "list_in_boot_menu": 1,
       "startup_string": "9 5 +"
