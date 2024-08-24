@@ -51,3 +51,10 @@ def edit(path : str, to_change : str, value, library : str = "none"):
 
     with open("save.json", "w") as outfile:
         json.dump(data, outfile)
+
+def os_edit(os_name: str, to_change : str, value):
+    with open("oses.json", mode="r", encoding="utf-8") as read_file:
+        data = json.load(read_file)
+    data["os"][f"system_{os_name}"][to_change] = value
+    with open("oses.json", "w") as outfile:
+        json.dump(data, outfile, indent=4)

@@ -7,21 +7,22 @@ from rich.panel import Panel
 from time import sleep as wait
 import random
 
-def load_tables(system_name : str):
+
+def load_tables(system_name: str):
     # Make it accessible anywhere
     global menutable1, begintable1, begintable2, begintable3
 
     # Main Menu 1 (no bin, achivements, calendar)
     menutable1 = Table(title=load_os(system_name, "name"), box=box.ROUNDED)
     menutable1.add_column(load("lang.json", "main-collumn", load("save.json", "lang")))
-    
+
     menutable1.add_row(f"1. {load("lang.json", "main-row-1", load("save.json", "lang"))}")
     menutable1.add_row(f"2. {load("lang.json", "main-row-2", load("save.json", "lang"))}")
 
     # Begin Menu 1 (no load game)
     begintable1 = Table(title=load("lang.json", "main-row-2", load("save.json", "lang")), box=box.ROUNDED)
     begintable1.add_column(load("lang.json", "main-collumn", load("save.json", "lang")))
-    
+
     begintable1.add_row(f"1. {load("lang.json", "begin-row-1", load("save.json", "lang"))}")
     begintable1.add_row(f"2. {load("lang.json", "begin-row-3", load("save.json", "lang"))}")
     begintable1.add_row(f"3. {load("lang.json", "begin-row-4", load("save.json", "lang"))}")
@@ -31,7 +32,7 @@ def load_tables(system_name : str):
     # Begin Menu 2 (has load game)
     begintable2 = Table(title=load("lang.json", "main-row-2", load("save.json", "lang")), box=box.ROUNDED)
     begintable2.add_column(load("lang.json", "main-collumn", load("save.json", "lang")))
-    
+
     begintable2.add_row(f"1. {load("lang.json", "begin-row-2", load("save.json", "lang"))}")
     begintable2.add_row(f"2. {load("lang.json", "begin-row-1", load("save.json", "lang"))}")
     begintable2.add_row(f"3. {load("lang.json", "begin-row-3", load("save.json", "lang"))}")
@@ -47,7 +48,8 @@ def load_tables(system_name : str):
     begintable3.add_row(f"3. {load("lang.json", "begin-row-5", load("save.json", "lang"))}")
     begintable3.add_row(f"4. {load("lang.json", "begin-row-6", load("save.json", "lang"))}")
 
-def menu(system_name : str, system_level: int, load_table : bool = False):
+
+def menu(system_name: str, system_level: int, load_table: bool = False):
     if load_table:
         load_tables(system_name)
     clear()
@@ -70,7 +72,7 @@ def menu(system_name : str, system_level: int, load_table : bool = False):
                         shutdown()
                         break
                     elif choicebm == "5":
-                        restart()    
+                        restart()
                         break
             elif system_level >= 1:
                 while True:
@@ -93,10 +95,11 @@ def menu(system_name : str, system_level: int, load_table : bool = False):
                     elif choicebm == "6":
                         restart()
                         break
-            elif system_level < 0: 
+            elif system_level < 0:
                 edit("save.json", system_name, 0, "save")
 
-def paused_menu(system_name : str, system_level: int):
+
+def paused_menu(system_name: str, system_level: int):
     clear()
     rprint(begintable3)
     while True:
@@ -116,6 +119,7 @@ def paused_menu(system_name : str, system_level: int):
             restart()
             break
 
+
 # shutdown wgaming
 def shutdown():
     clear()
@@ -124,14 +128,16 @@ def shutdown():
     rprint(f"[bold yellow]{load("lang.json", "close-game", load("save.json", "lang"))}[/bold yellow]")
     quit()
 
+
 def restart():
     clear()
     print(load("lang.json", "wait", load("save.json", "lang")))
     wait(3)
     from boot import boot
     boot()
-            
-def game(system_name : str, system_level: int):
+
+
+def game(system_name: str, system_level: int):
     clear()
 
     # Variables
@@ -150,7 +156,7 @@ def game(system_name : str, system_level: int):
             print(load("lang.json", "game-4", load("save.json", "lang")))
             lives = 3
             edit("save.json", "lives", lives)
-            edit("save.json", system_name, curr_level-1, "save")
+            edit("save.json", system_name, curr_level - 1, "save")
             menu(system_name, system_level)
         elif bar_counter == 20 or green_segment_catch:
             perfectionist = True
@@ -174,32 +180,36 @@ def game(system_name : str, system_level: int):
             can_input = True
             green_segment_catch = False
             perfectionist = False
-
+            unlock_level = load_os(system_name, "unlock_level")
             # labels (pro only for now)
             if curr_level == pro_level:
                 print(load("lang.json", "label-1", load("save.json", "lang")))
                 edit("save.json", f"{system_name}_label", "Professional", "save")
-            wait(2)
+            if curr_level == unlock_level:
+                if system_name == "PB95":
+                    print("Unlocked new system: Progressbar 95+")
+                    os_edit("PB95+", "unlocked", True)
 
+            wait(2)
 
             edit("save.json", system_name, curr_level, "save")
 
         # popup
-        popup_show = random.randint(0,7)
+        popup_show = random.randint(0, 7)
         if popup_show == 6:
             popup_spawn()
 
         clear()
         print(f"{load("lang.json", "game-6", load("save.json", "lang"))} {curr_level}")
         print(f"{load("lang.json", "game-7", load("save.json", "lang"))} {lives}\n")
-            
+
         # green segment
         seg = random.randint(0, 5)
         green_seg = random.randint(0, 250)
         if green_seg == 95:
             seg = 6
             rprint("[bright_green]╔══╗\n║$$║\n║$$║\n╚══╝[/bright_green]")
-        
+
         if seg != 6:
             if seg == 0:
                 rprint("[blue]╔══╗\n║  ║\n║  ║\n╚══╝[/blue]")
@@ -222,7 +232,7 @@ def game(system_name : str, system_level: int):
                 elif i == "y":
                     colored_progressbar.append("[yellow]█[/yellow]")
 
-        rprint("\n"+load("lang.json", "game-1", load("save.json", "lang")), Panel("".join(colored_progressbar), box.ROUNDED, width=24))
+        rprint("\n" + load("lang.json", "game-1", load("save.json", "lang")), Panel("".join(colored_progressbar), box.ROUNDED, width=24))
         print(load("lang.json", "game-2", load("save.json", "lang")))
         choice_bar = input("> ")
         if choice_bar.lower() == "c":
@@ -244,22 +254,22 @@ def game(system_name : str, system_level: int):
                 progressbar[bar_counter] = "y"
                 bar_counter += 1
             elif seg == 5:
-                decider = random.randint(0,1)
+                decider = random.randint(0, 1)
                 if decider == 0:
                     times = 2
                 elif decider == 1:
                     times = 3
 
-                if bar_counter > 20-times:
+                if bar_counter > 20 - times:
                     times -= 1
 
                 for i in range(times):
                     progressbar[bar_counter] = "b"
                     bar_counter += 1
 
-                          
+
             elif seg == 6:
-                green_segment_catch = True   
+                green_segment_catch = True
         elif choice_bar.lower() == "q":
             print(load("lang.json", "game-3", load("save.json", "lang")))
             wait(2)
@@ -271,7 +281,8 @@ def game(system_name : str, system_level: int):
         else:
             can_input = False
 
-def statistics(system_name : str, system_level: int):
+
+def statistics(system_name: str, system_level: int):
     clear()
     print(f"{load("lang.json", "main-row-1", load("save.json", "lang"))}:\n")
 
@@ -287,11 +298,12 @@ def statistics(system_name : str, system_level: int):
     input(load("lang.json", "continue", load("save.json", "lang")))
     menu(system_name, system_level)
 
-            
+
 def popup_spawn():
     while True:
         clear()
-        rprint(Panel(f"{load("lang.json", "popup", load("save.json", "lang"))}\n       [OK]", box=box.ROUNDED, width=22))
+        rprint(
+            Panel(f"{load("lang.json", "popup", load("save.json", "lang"))}\n       [OK]", box=box.ROUNDED, width=22))
         popup_input = input("> ")
         if popup_input.lower() == "ok":
             break
