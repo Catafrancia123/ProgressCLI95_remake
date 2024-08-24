@@ -1,1 +1,26 @@
-{"os": {"system_PB95": {"name": "Progressbar 95", "short_name": "PB95", "pro_level": 10, "unlock_level": 5, "system_unlock": "95plus", "required_string": "", "list_in_boot_menu": 0, "startup_string": "9 5", "unlocked": "u"}, "system_PB95+": {"name": "Progressbar 95+", "short_name": "PB95+", "pro_level": 20, "unlock_level": 15, "system_unlock": "", "required_string": "PB95", "list_in_boot_menu": 1, "startup_string": "9 5 +", "unlocked": "n"}}}
+{
+    "os": {
+        "system_PB95": {
+            "name": "Progressbar 95",
+            "short_name": "PB95",
+            "pro_level": 10,
+            "unlock_level": 5,
+            "system_unlock": "95plus",
+            "required_string": "",
+            "list_in_boot_menu": 0,
+            "startup_string": "9 5",
+            "unlocked": true
+        },
+        "system_PB95+": {
+            "name": "Progressbar 95+",
+            "short_name": "PB95+",
+            "pro_level": 20,
+            "unlock_level": 15,
+            "system_unlock": "",
+            "required_string": "PB95",
+            "list_in_boot_menu": 1,
+            "startup_string": "9 5 +",
+            "unlocked": false
+        }
+    }
+}

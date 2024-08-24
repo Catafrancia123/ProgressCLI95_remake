@@ -57,4 +57,4 @@ def os_edit(os_name: str, to_change : str, value):
         data = json.load(read_file)
     data["os"][f"system_{os_name}"][to_change] = value
     with open("oses.json", "w") as outfile:
-        json.dump(data, outfile)
+        json.dump(data, outfile, indent=4)

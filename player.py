@@ -188,15 +188,7 @@ def game(system_name: str, system_level: int):
             if curr_level == unlock_level:
                 if system_name == "PB95":
                     print("Unlocked new system: Progressbar 95+")
-<<<<<<< Updated upstream
-                    with open("oses.json", mode="r", encoding="utf-8") as read_file:
-                        data = json.load(read_file)
-                    data["os"]["system_PB95+"]["unlocked"] = "u"
-                    with open("oses.json", mode="w", encoding="utf-8") as write_file:
-                        json.dump(data, write_file)
-=======
-                    os_edit("PB95+", "unlocked", "u")
->>>>>>> Stashed changes
+                    os_edit("PB95+", "unlocked", True)
 
             wait(2)
 

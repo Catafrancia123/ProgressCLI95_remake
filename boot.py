@@ -36,26 +36,26 @@ def boot():
             global_label = load("save.json", f"PB{i}_label", "save")
             if global_label == "None":
                 global_label = ""
-            if system_unlocked == "u":
+            if system_unlocked == True:
                 print(f"{counter}.", load_os(f"PB{i}", "name"), global_label)
-            elif system_unlocked == "n":
+            elif system_unlocked == False:
                 print(f"{counter}.", load_os(f"PB{i}", "name"), global_label, "(not unlocked)")
             counter += 1
 
         try:
             choice = int(input(f"\n{load("lang.json", "select-system", load("save.json", "lang"))} "))
-            label = load("save.json", f"PB{systems[choice - 1]}_label", "save")
+            label = load("save.json", f"PB{systems[choice-1]}_label", "save")
             if label == "None":
                 label = ""
 
             if choice in systems_int:
-                system = load("oses.json", f"system_PB{systems[choice - 1]}", "os")
+                system = load("oses.json", f"system_PB{systems[choice-1]}", "os")
                 clear()
-                if system['unlocked'] == "u":
-                    print(f"{load("lang.json", "loading", load("save.json", "lang"))} {load_os(f"PB{systems[choice - 1]}", "name")} {label}\n{load("lang.json", "wait", load("save.json", "lang"))}")
+                if system['unlocked'] == True:
+                    print(f"{load("lang.json", "loading", load("save.json", "lang"))} {load_os(f"PB{systems[choice-1]}", "name")} {label}\n{load("lang.json", "wait", load("save.json", "lang"))}")
                     wait(3)
-                    menu(load_os(f"PB{systems[choice - 1]}", "short_name"), load("save.json", f"PB{systems[choice - 1]}", "save"), True)
-                elif system['unlocked'] == "n":
+                    menu(load_os(f"PB{systems[choice-1]}", "short_name"), load("save.json", f"PB{systems[choice-1]}", "save"), True)
+                elif system['unlocked'] == False:
                     print(load("lang.json", "system-not-unlocked-exist", load("save.json", "lang")))
                     wait(3)
                 break
