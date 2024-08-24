@@ -1,11 +1,11 @@
 {
     "en" : {
         "sparrow" : "Sparrow Assistant Text BIOS v.5.0.1. Copyright Progresscorp 2024. All Rights Reserved.",
-        "version" : "CLI v.0.3.1 - Build Date: 11-8-2024",
+        "version" : "CLI v.0.4 - Build Date: 25-8-2024",
         "beta-warning" : "GAME ON BETA // BUGS ARE COMMON",
         "select-system" : "Select System:",
-        "system-not-unlocked-exist" : "System does not exist/unlocked yet.",
-        "not-valid-input" : "Not a valid input.",
+        "system-not-unlocked-input" : "System does not exist/unlocked yet, or not a valid input.",
+        "not-unlocked" : "not unlocked",
         "error-save-modified" : "ERROR: Save file has been modified. (ERR CODE: 1)\nPlease delete the save.json file and run the program again (this will delete your progress).\nContact the developer for more info.",
         "popup" : ":) Annoying Popup!",
         "wait" : "Please Wait...",
@@ -16,6 +16,9 @@
         "delete-prompt" : "delete", 
         "delete-3" : "Your data has been deleted.",
         "continue" : "Press any key to continue.\n",
+
+        "credits-1" : "Progress[#12cc00]CLI[/#12cc00]95 [blink]Development[/blink] Team",
+        "credits-2" : "Progress[#12cc00]CLI[/#12cc00]95 [blink]Translators[/blink]",
 
         "main-collumn" : "Options",
         "main-row-1" : "Statistics",
@@ -38,6 +41,7 @@
         "game-6" : "Level",
         "game-7" : "Lives Remaining:",
         "game-8" : "You win, Perfectionist!",
+        "game-9" : "New system unlocked:",
 
         "label-1" : "Congratulations, Professional Label acquired!",
 

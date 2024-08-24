@@ -5,9 +5,10 @@ save = "save.json"
 
 def find_save(quiet : bool = False):
     save_found = False
-    for root, dirs, files in os.walk("./"):
-        if save in files:
-            save_found = True
+    current_directory_files = os.listdir("./")  # List all files in the current directory
+
+    if save in current_directory_files:  # Check if 'save.json' exists in the current directory
+        save_found = True
 
     if not save_found:
         if not quiet:
@@ -16,9 +17,7 @@ def find_save(quiet : bool = False):
             "lang": "en",
             "save": {
                 "PB95" : 0,
-                "PB95_label" : "None",
                 "PB95+" : 0,
-                "PB95+_label" : "None"
             },
             "lives": 3
         }
@@ -49,12 +48,13 @@ def edit(path : str, to_change : str, value, library : str = "none"):
     else:
         data[to_change] = value
 
-    with open("save.json", "w") as outfile:
+    with open(path, "w") as outfile:
         json.dump(data, outfile)
 
-def os_edit(os_name: str, to_change : str, value):
-    with open("oses.json", mode="r", encoding="utf-8") as read_file:
+def edit_os(to_change : str, value, os_name : str):
+    with open(oses, mode="r", encoding="utf-8") as read_file:
         data = json.load(read_file)
+
     data["os"][f"system_{os_name}"][to_change] = value
-    with open("oses.json", "w") as outfile:
-        json.dump(data, outfile, indent=4)
+    with open(oses, "w") as outfile:
+        json.dump(data, outfile, indent=3)
