@@ -8,7 +8,9 @@ from time import sleep as wait
 import random
 
 try: LANG = load("save.json", "lang", "settings")
-except Exception: find_save()
+except Exception: 
+    find_save() 
+    LANG = load("save.json", "lang", "settings")
 
 #* The Game
 def game(system_name : str, system_level: int, system_choice_index : int):

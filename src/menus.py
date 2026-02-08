@@ -8,7 +8,9 @@ from time import sleep as wait
 
 #! Tables for the menu
 try: LANG = load("save.json", "lang", "settings")
-except Exception: find_save()
+except Exception: 
+    find_save() 
+    LANG = load("save.json", "lang", "settings")
 
 def load_tables(system_name : str):
     #! Make it accessible anywhere
