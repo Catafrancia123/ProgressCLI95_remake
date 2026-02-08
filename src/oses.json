@@ -9,7 +9,7 @@
       "required_string": "",
       "list_in_boot_menu": 0,
       "startup_string": "9 5",
-      "label": "Professional",
+      "label": "",
       "unlocked": true
     },
     "system_PB95+": {
@@ -21,7 +21,7 @@
       "required_string": "PB95",
       "list_in_boot_menu": 1,
       "startup_string": "9 5 +",
-      "label": "None",
+      "label": "",
       "unlocked": true
     }
   }

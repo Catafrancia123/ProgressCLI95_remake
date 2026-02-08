@@ -14,12 +14,15 @@ def find_save(quiet : bool = False):
         if not quiet:
             print("Save not found, Creating save...")
         save_template = {
-            "lang": "en",
             "save": {
-                "PB95" : 0,
-                "PB95+" : 0,
+                "PB95": 0,
+                "PB95+": 0,
+                "lives": 3,
             },
-            "lives": 3
+            "settings": {
+                "bar_popup": False,
+                "lang": "en",
+            }
         }
 
         with open("save.json", "w") as outfile:
