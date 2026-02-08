@@ -194,8 +194,7 @@ cython_debug/
 .cursorindexingignore
 
 # misc
-src/config.json
+src/save.json
 src/test.py
-src/commands/test.py
-compile.txt
+compile.sh
 *.zip

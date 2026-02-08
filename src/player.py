@@ -35,7 +35,7 @@ def game(system_name : str, system_level: int, system_choice_index : int):
             edit("save.json", system_name, curr_level-1, "save")
             from menus import menu
             menu(system_name, system_level)
-        elif bar_counter == 20 or green_segment_catch: # user wins
+        elif bar_counter >= 20 or green_segment_catch: # user wins
             # check perfectionist
             perfectionist = True
             for i in progressbar:
@@ -73,11 +73,10 @@ def game(system_name : str, system_level: int, system_choice_index : int):
             wait(2)
             edit("save.json", system_name, curr_level, "save")
 
-
         # popup
         popup_show = random.randint(0,7)
         if popup_show == 4:
-            popup_spawn()
+            popup_spawn(progressbar)
 
         clear()
         print(f"{load("lang.json", "game-6", LANG)} {curr_level}")
@@ -146,8 +145,6 @@ def game(system_name : str, system_level: int, system_choice_index : int):
                 for i in range(times):
                     progressbar[bar_counter] = "b"
                     bar_counter += 1
-
-                          
             elif seg == 6:
                 green_segment_catch = True   
         elif choice_bar.lower() == "q":
@@ -164,10 +161,20 @@ def game(system_name : str, system_level: int, system_choice_index : int):
             can_input = False
 
             
-def popup_spawn():
+def popup_spawn(progressbar):
     while True:
         clear()
+        colored_progressbar = []
+
         rprint(Panel(f"{load("lang.json", "popup", LANG)}\n       [OK]", box=box.ROUNDED, width=22))
+
+        for i in progressbar:
+            if i == "b":
+                colored_progressbar.append("[blue]█[/blue]")
+            elif i == "y":
+                colored_progressbar.append("[yellow]█[/yellow]")
+        rprint("\n"+load("lang.json", "game-1", LANG), Panel("".join(colored_progressbar), box.ROUNDED, width=24))
+
         popup_input = input("> ")
         if popup_input.lower() == "ok":
             break
