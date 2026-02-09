@@ -10,4 +10,4 @@ Trello: [here](https://trello.com/b/af6IZl6X/progresscli-rewrite-stuff)
 ## Translators: 
 1. Please do not delete any ``{*}``. As they are required to format the game.
 
-# Built 07-02-2026
+# Built 09-02-2026
