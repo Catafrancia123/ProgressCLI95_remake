@@ -1,7 +1,7 @@
 {
     "en": {
-        "sparrow": "Sparrow Assistant Text BIOS v.5.0.1. Copyright Progresscorp 2024-2026. All Rights Reserved.",
-        "version": "CLI v.0.4.1 - Build Date: 07-02-2026",
+        "sparrow": "Sparrow Assistant Text BIOS v.5.0.1. Copyright Progressbar Community 2024-2026. All Rights Reserved.",
+        "version": "CLI {0} - Build Date: {1}",
         "beta-warning": "GAME UNDER DEVELOPMENT // BUGS ARE COMMON",
         "select-system": "Select System:",
         "system-not-unlocked-input": "System does not exist/unlocked yet, or not a valid input.",
@@ -15,6 +15,7 @@
         "delete-2": "Type \"DELETE\" to delete your progress (all in underscore)",
         "delete-3": "Your data has been deleted.",
         "continue": "Press any key to continue.\n",
+        "select-language": "(en) Please type the code on the left (exactly as it is) to select this language (English).",
 
         "credits-1": "Progress[#12cc00]CLI[/#12cc00]95 [blink]Development[/blink] Team",
         "credits-2": "Progress[#12cc00]CLI[/#12cc00]95 [blink]Translators[/blink]",
@@ -33,8 +34,7 @@
         "begin-row-6": "Restart",
         "begin-row-7": "Quit Game",
         "begin-row-8": "Resume",
-        "settings-row-1": "Popup Settings",
-        "settings-row-2": "Change Language",
+        "settings-row-1": "Change Language",
 
         "game-1": "Your bar:",
         "game-2": "Input \"c\" to catch, Input any key to move away, Input \"q\" to quit, Input \"p\" to pause the game.",
@@ -49,10 +49,6 @@
         "label-1": "Congratulations, Professional Label acquired!",
 
         "stats-1": "Levels Completed:",
-        "stats-2": "Systems unlocked:",
-
-        "settings-popup": "Would you want this display below:",
-        "settings-popup2": "Would you want to remove this display below:",
-        "settings-popup3": "In the popup screen? (Y/N)"
+        "stats-2": "Systems unlocked:"
     }
 }   

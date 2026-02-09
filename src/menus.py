@@ -1,5 +1,4 @@
 from functions import *
-from saveloader import *
 from player import game
 from rich import print as rprint
 from rich import box
@@ -56,8 +55,7 @@ def load_tables(system_name : str):
     settingstable = Table(title=load("lang.json", "main-row-4", LANG), box=box.ROUNDED)
     settingstable.add_column(load("lang.json", "main-collumn", LANG))
     settingstable.add_row(f"1. {load("lang.json", "settings-row-1", LANG)}")
-    settingstable.add_row(f"2. {load("lang.json", "settings-row-2", LANG)}")
-    settingstable.add_row(f"3. {load("lang.json", "main-row-5", LANG)}")
+    settingstable.add_row(f"2. {load("lang.json", "main-row-5", LANG)}")
 
 #* MENUS
 def menu(system_name : str, system_level: int, system_choice_index : int, load_table : bool = False):
@@ -180,9 +178,7 @@ def settings(system_name : str, system_level: int, system_choice_index: int):
                     settings(system_name, system_level, system_choice_index)
                     break
         elif choice == "2":
-            langobj = langset("player")
-            globals()[langobj] = __import__(langobj)
-            lang = eval(langobj).language()
+            select_language(startup=False)
         elif choice == "3":
             menu(system_name, system_level, system_choice_index)
             break

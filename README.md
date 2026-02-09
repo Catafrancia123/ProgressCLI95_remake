@@ -7,4 +7,7 @@ Trello: [here](https://trello.com/b/af6IZl6X/progresscli-rewrite-stuff)
 ## Important message to testers:
 1. Please install all dependencies in the `requirements.txt` file, by running: `pip install -r "requirements.txt"`
 
+## Translators: 
+1. Please do not delete any ``{*}``. As they are required to format the game.
+
 # Built 07-02-2026

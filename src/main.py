@@ -1,4 +1,10 @@
-from saveloader import *
+"""
+Version: v0.4.1-dev2
+New Features: 
+    - Documentation for saveloader functions
+    - Added the change language option in settings
+    - Fixed several bugs
+"""
 from functions import *
 from menus import menu
 from rich import print as rprint
@@ -6,6 +12,8 @@ from time import sleep as wait
 from playsound3 import playsound
 
 # Version and Important stuff
+VERSION = "v0.4.1-dev2"
+BUILD_DATE = "09-02-2026"
 SYSTEMS = ("PB95", "PB95+")
 LANGS = ("en")
 SYSTEMS_INT = tuple(range(2+1))
@@ -14,7 +22,6 @@ try: LANG = load("save.json", "lang", "settings")
 except Exception: find_save()
 
 def boot():
-    find_save()
     check_lives = load("save.json", "lives", "save")
     LANG = load("save.json", "lang", "settings")
     if check_lives > 3 or LANG not in LANGS:
@@ -27,8 +34,8 @@ def boot():
     playsound("sounds/beep.wav")
     while True:
         clear()
-        print(load("lang.json", "sparrow", LANG))
-        print(load("lang.json", "version", LANG))
+        print(load("lang.json", "sparrow", LANG)) # yes
+        print(load("lang.json", "version", LANG).format(VERSION, BUILD_DATE))
         rprint(f"[bright_red]- {load("lang.json", "beta-warning", LANG)} -[bright_red]\n")
             
         counter = 1
@@ -81,4 +88,5 @@ def credits_pbcli():
     boot()
     
 
-boot()
+if __name__ == "__main__":
+    boot()

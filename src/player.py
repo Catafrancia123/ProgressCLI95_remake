@@ -1,5 +1,4 @@
 from functions import *
-from saveloader import *
 from rich import print as rprint
 from rich import box
 from rich.table import Table
@@ -15,7 +14,7 @@ except Exception:
 #* The Game
 def game(system_name : str, system_level: int, system_choice_index : int):
     clear()
-
+    
     # Variables
     progressbar = list(range(20))
     curr_level = system_level
