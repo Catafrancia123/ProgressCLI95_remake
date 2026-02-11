@@ -1,30 +1,21 @@
 import json, os
 import sys as system
-from pycaw.pycaw import AudioUtilities
 
 #* Saveloader stuff
 LANGS = ("en",)
-oses = "./oses.json"
-save = "./save.json"
+oses = "oses.json"
+save = "save.json"
 
 def find_save(quiet : bool = False):
     save_found = False
-    has_audio = True
     current_directory_files = os.listdir("./")  # List all files in the current directory
 
     if save in current_directory_files:  # Check if 'save.json' exists in the current directory
         save_found = True
 
-    try:
-        sessions = AudioUtilities.GetAllSessions()
-        has_audio = True
-    except Exception:
-        has_audio = False
-
     if not save_found:
         if not quiet:
             print("Save not found, Creating save...")
-            if not has_audio: print("No audio device detected.")
         save_template = {
             "save": {
                 "PB95": 0,
@@ -33,7 +24,6 @@ def find_save(quiet : bool = False):
             },
             "settings": {
                 "lang": "en",
-                "has_audio": has_audio,
             }
         }
 

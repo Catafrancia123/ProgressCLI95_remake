@@ -1,3 +1,2 @@
 rich==14.3.2
 playsound3==3.3.1
-pycaw.pycaw==20251023
