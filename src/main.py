@@ -16,7 +16,7 @@ VERSION = "v0.4.1-dev2"
 BUILD_DATE = "09-02-2026"
 SYSTEMS = ("PB95", "PB95+")
 LANGS = ("en")
-SYSTEMS_INT = tuple(range(2+1))
+SYSTEMS_INT = tuple(range(len(SYSTEMS)+1))
 
 try: LANG = load("save.json", "lang", "settings")
 except Exception: find_save()
@@ -31,7 +31,8 @@ def boot():
 
 
     clear()
-    playsound("sounds/beep.wav")
+    has_audio = load("save.json", "has_audio", "settings")
+    if has_audio: playsound("sounds/beep.wav")
     while True:
         clear()
         print(load("lang.json", "sparrow", LANG)) # yes
